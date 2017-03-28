@@ -1,0 +1,37 @@
+language: c++
+
+compiler:
+  - clang++
+  - g++
+
+dist: trusty
+sudo: false
+
+os:
+  - linux
+  - osx
+
+cache:
+  apt: true
+  ccache: true
+
+addons:
+  apt:
+    packages:
+      - g++-6
+      - valgrind
+      - cmake
+    sources: &sources
+      - ubuntu-toolchain-r-test
+
+before_install:
+  - if [ $TRAVIS_OS_NAME == 'osx' ]; then
+      type cmake >/dev/null 2>&1 || brew install cmake;
+    fi
+
+script:
+  - gcc -v
+  - g++ -v
+  - clang -v
+  - clang++ -v
+  - cmake --version
